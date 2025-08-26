@@ -24,11 +24,19 @@
 
   <script>
   async function getAccessToken() {
-    const resp = await fetch("https://qlik-backend.vercel.app/api/access-token", {
-      method: "GET"
-    });
-    const json = await resp.json();
-    return json.access_token;
+  const resp = await fetch("https://qlik-backend.vercel.app/api/access-token", {
+    method: "GET"
+  });
+
+  if (!resp.ok) {
+    const errorText = await resp.text();
+    throw new Error("Error obteniendo token: " + errorText);
+  }
+
+  const json = await resp.json();
+
+  console.log("🔑 Token recibido:", json.access_token); // <-- Aquí lo ves en la consola
+  return json.access_token;
   }
   </script>
 
