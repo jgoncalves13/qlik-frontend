@@ -3,63 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Embed Qlik Sense App</title>
-  <!-- Qlik Embed Web Components -->
   <script
     crossorigin="anonymous"
+    type="application/javascript"
     src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
-    data-host="https://keyruspt.eu.qlikcloud.com"
-    data-get-access-token="getAccessToken">
-  </script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .qlik-container {
-      height: 600px;
-      width: 100%;
-      margin-top: 20px;
-    }
-  </style>
+    data-host="https://keyruspt.eu.qlikcloud.com.qlikcloud.com"
+    data-access-token-storage="session"
+  ></script>
 </head>
 <body>
   <h1>Mi aplicación Qlik Sense embebida</h1>
 
-  <div class="qlik-container">
+  <div style="height:600px;width:100%">
     <qlik-embed
       ui="classic/app"
       app-id="40de9651-2036-42be-a6e0-86ec38362ad0"
-      sheet-id="XwLsPUk"
     ></qlik-embed>
   </div>
 
-  <script>
-    // Función para obtener token desde backend y loguearlo
-    async function getAccessToken() {
-      try {
-        const resp = await fetch("https://qlik-backend.vercel.app/api/access-token", {
-          method: "GET"
-        });
-
-        if (!resp.ok) {
-          const errorText = await resp.text();
-          throw new Error("Error obteniendo token: " + errorText);
-        }
-
-        const json = await resp.json();
-
-        console.log("🔑 Token recibido:", json.access_token); // <-- Ver token en consola
-        console.log("ℹ️ Respuesta completa del backend:", json); // Para depuración completa
-
-        return json.access_token; // Devuelve solo el token a Qlik Embed
-      } catch (err) {
-        console.error("❌ Error en getAccessToken:", err);
-        alert("No se pudo obtener el token. Revisa la consola.");
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
