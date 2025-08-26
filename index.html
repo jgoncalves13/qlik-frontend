@@ -8,8 +8,8 @@
     type="application/javascript"
     src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
     data-host="https://keyruspt.eu.qlikcloud.com"
-    data-access-token-storage="session"
-  ></script>
+    data-get-access-token="getAccessToken">
+  </script>
 </head>
 <body>
   <h1>Mi aplicación Qlik Sense embebida</h1>
@@ -18,9 +18,19 @@
     <qlik-embed
       ui="classic/app"
       app-id="40de9651-2036-42be-a6e0-86ec38362ad0"
-      //sheet-id="XwLsPUk"
+      <!-- sheet-id="XwLsPUk" -->
     ></qlik-embed>
   </div>
+
+  <script>
+  async function getAccessToken() {
+    const resp = await fetch("https://qlik-backend.vercel.app/api/access-token", {
+      method: "GET"
+    });
+    const json = await resp.json();
+    return json.access_token;
+  }
+  </script>
 
   <script src="script.js"></script>
 </body>
